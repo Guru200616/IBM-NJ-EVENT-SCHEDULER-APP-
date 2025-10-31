@@ -1,0 +1,12 @@
+{
+  "name": "ibm-nj-event-scheduler-app",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "build": "echo 'Nothing to build'"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
