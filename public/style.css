@@ -1,0 +1,76 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #f2f3f5;
+  margin: 0;
+  padding: 20px;
+  color: #333;
+}
+
+h1 {
+  text-align: center;
+  color: #0056b3;
+}
+
+.form-section, .events-section {
+  background: #fff;
+  padding: 20px;
+  margin: 20px auto;
+  border-radius: 10px;
+  max-width: 600px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+input, button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+button {
+  background: #0056b3;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+button:hover {
+  background: #004494;
+}
+
+.event-card {
+  background: #e8f0fe;
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 8px;
+  position: relative;
+}
+
+.event-card h3 {
+  margin: 0;
+  color: #003366;
+}
+
+.event-card small {
+  display: block;
+  color: #555;
+}
+
+.delete-btn {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  background: crimson;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  background: darkred;
+}
