@@ -1,0 +1,12 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  background: #f7f8fb;
+  color: #111;
+  font-family: "Inter", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
