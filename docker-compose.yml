@@ -1,0 +1,27 @@
+version: "3.8"
+services:
+  mongo:
+    image: mongo:6
+    restart: unless-stopped
+    volumes:
+      - mongo-data:/data/db
+    ports:
+      - "27017:27017"
+
+  server:
+    build: ./server
+    restart: unless-stopped
+    ports:
+      - "4000:4000"
+    environment:
+      - MONGODB_URI=mongodb://mongo:27017/event_scheduler_db
+      - JWT_SECRET=replace_with_secure_random_value
+      - JWT_EXPIRES_IN=7d
+    depends_on:
+      - mongo
+    volumes:
+      - ./server:/app
+      - ./client:/app/client
+
+volumes:
+  mongo-data:
