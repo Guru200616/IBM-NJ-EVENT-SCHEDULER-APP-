@@ -1,36 +1,34 @@
-import express from "express";
-import cors from "cors";
-import dotenv from "dotenv";
-import { Sequelize } from "sequelize";
+require('dotenv').config();
+const express = require('express');
+const path = require('path');
+const cors = require('cors');
+const connectDB = require('./config/db');
+const authRoutes = require('./routes/auth');
+const eventRoutes = require('./routes/events');
+const { startReminderJob } = require('./jobs/reminders');
 
-dotenv.config();
 const app = express();
+
 app.use(cors());
 app.use(express.json());
 
-// ✅ MySQL connection
-const sequelize = new Sequelize(
-  process.env.DB_NAME,
-  process.env.DB_USER,
-  process.env.DB_PASS,
-  {
-    host: process.env.DB_HOST,
-    dialect: "mysql",
-    logging: false,
-  }
-);
+// Connect DB
+connectDB(process.env.MONGODB_URI || 'mongodb://localhost:27017/event_scheduler_db');
 
-sequelize.authenticate()
-  .then(() => console.log("✅ MySQL Connected"))
-  .catch(err => console.error("❌ Database connection failed:", err));
+// API routes
+app.use('/api/auth', authRoutes);
+app.use('/api/events', eventRoutes);
 
-// ✅ Basic route
-app.get("/", (req, res) => {
-  res.send("IBM-NJ Event Scheduler API is running successfully 🚀");
+// Serve client static files (if client placed at ../client)
+app.use(express.static(path.join(__dirname, '..', 'client')));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'client', 'index.html'));
 });
 
-// ✅ Start server
-const PORT = process.env.PORT || 5000;
+// Start reminder job
+startReminderJob();
+
+const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
-  console.log(`🚀 Server started on port ${PORT}`);
+  console.log(`Server listening on port ${PORT}`);
 });
